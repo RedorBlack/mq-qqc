@@ -6,8 +6,6 @@ import org.springframework.jms.annotation.EnableJms;
 
 /** @Author: Red @Descpription: @Date: 11:06 2019/11/22 */
 @SpringBootApplication
-/** //启动消息队列 */
-@EnableJms
 public class ActiveMQApplication {
 
   public static void main(String[] args) {

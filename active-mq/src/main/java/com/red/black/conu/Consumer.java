@@ -3,6 +3,7 @@ package com.red.black.conu;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -19,8 +20,15 @@ public class Consumer implements MessageListener {
   }
 
   @JmsListener(destination = "test-queue", containerFactory = "queueListener")
-  public void receiveQueuenode(String text) {
+  @SendTo("return-queue")
+  public String receiveQueuenode(String text) {
     System.out.println("Consumer收到的报文为:" + text);
+    return text;
+  }
+
+  @JmsListener(destination = "return-queue", containerFactory = "queueListener")
+  public void returnQueuenode(String text) {
+    System.out.println("收到返回的信息:" + text);
   }
 
   @JmsListener(destination = "test-topic", containerFactory = "topicListener")
@@ -33,5 +41,4 @@ public class Consumer implements MessageListener {
 
   @Override
   public void onMessage(Message message) {}
-
 }
